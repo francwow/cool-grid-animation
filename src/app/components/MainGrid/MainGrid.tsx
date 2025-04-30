@@ -21,14 +21,15 @@ const initialState = {
   navigation: "home",
 };
 
-type StateType = {
-  grid: { columns: string; rows: string };
-  navigation: "home" | "pages";
-};
+// type StateType = {
+//   grid: { columns: string; rows: string };
+//   navigation: "home" | "pages";
+// };
 
 type ActionType = { type: string; payload: string };
 
-const reducer = (state: StateType, { type, payload }: ActionType) => {
+// eslint-disable-next-line
+const reducer = (state: any, { type, payload }: ActionType) => {
   switch (type) {
     case ACTIONS.SET_GRID:
       if (payload === "hover-0") {
