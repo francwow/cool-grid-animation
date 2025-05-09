@@ -10,7 +10,7 @@ const MenuBtn = ({ dispatch }: MenuBtnProps) => {
   return (
     <div
       onClick={() => {
-        dispatch({ type: ACTIONS.SET_GRID, payload: "click-menu" });
+        dispatch({ type: ACTIONS.CLICK_MENU, payload: "click-menu" });
       }}
       className="menu-btn"
     >

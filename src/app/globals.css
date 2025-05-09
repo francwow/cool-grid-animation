@@ -5,5 +5,12 @@ nextjs-portal {
 }
 
 body {
+  --main-text: var(--font-geist-sans);
+  --secondary-text: var(--font-geist-mono)
   background-color: white;
+  font-family: var(--main-text);
+}
+
+p {
+  font-family: var(--main-text);
 }

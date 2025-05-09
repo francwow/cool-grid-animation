@@ -46,6 +46,7 @@
   transition: 0.3s ease transform;
   color: white;
   overflow: hidden;
+  display: none;
 }
 
 .slide-show-item:hover .item-modal {
@@ -66,4 +67,10 @@
 .slide-show-item:hover .item-modal p {
   opacity: 1;
   transition: 0.3s cubic-bezier(0.49, -0.01, 0.8, 0.99) opacity;
+}
+
+@media screen and (min-width: 991px) {
+  .item-modal {
+    display: block;
+  }
 }

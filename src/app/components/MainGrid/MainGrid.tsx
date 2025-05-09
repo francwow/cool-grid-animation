@@ -6,11 +6,14 @@ import { useMediaQuery } from "usehooks-ts";
 import GridItemDeskTop from "../GridItem/GridItemDeskTop";
 import GridItemMobile from "../GridItem/GridItemMobile";
 import MenuBtn from "../MenuBtn/MenuBtn";
+import PagesContainer from "../PagesContainer/PagesContainer";
 
 export const ACTIONS = {
-  SET_GRID: "set-grid",
-  NAVIGATION: "navigation",
-  SET_PAGES: "set_pages",
+  HOVER_GRID: "hover_grid",
+  CLICK_GRID: "click_grid",
+  CLICK_MENU: "click_menu",
+  NAVIGATE: "navigate",
+  ACTIVE_ITEM: "active_item",
 };
 
 const initialState = {
@@ -19,143 +22,168 @@ const initialState = {
     rows: "4fr 4fr 4fr",
   },
   navigation: "home",
+  itemActive: null,
 };
 
 // type StateType = {
 //   grid: { columns: string; rows: string };
 //   navigation: "home" | "pages";
+//   itemActive: null | number;
 // };
 
-type ActionType = { type: string; payload: string };
+type ActionType = { type: string; payload: string | number };
 
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const reducer = (state: any, { type, payload }: ActionType) => {
   switch (type) {
-    case ACTIONS.SET_GRID:
-      if (payload === "hover-0") {
+    case ACTIONS.HOVER_GRID:
+      if (payload === 0) {
         return {
           ...state,
           grid: { columns: "6fr 4fr 4fr", rows: "6fr 4fr 4fr" },
         };
       }
-      if (payload === "hover-1") {
+      if (payload === 1) {
         return {
           ...state,
           grid: { columns: "4fr 6fr 4fr", rows: "6fr 4fr 4fr" },
         };
       }
-      if (payload === "hover-2") {
+      if (payload === 2) {
         return {
           ...state,
           grid: { columns: "4fr 4fr 6fr", rows: "6fr 4fr 4fr" },
         };
       }
-      if (payload === "hover-3") {
+      if (payload === 3) {
         return {
           ...state,
           grid: { columns: "6fr 4fr 4fr", rows: "4fr 6fr 4fr" },
         };
       }
-      if (payload === "hover-4") {
+      if (payload === 4) {
         return {
           ...state,
           grid: { columns: "4fr 6fr 4fr", rows: "4fr 6fr 4fr" },
         };
       }
-      if (payload === "hover-5") {
+      if (payload === 5) {
         return {
           ...state,
           grid: { columns: "4fr 4fr 6fr", rows: "4fr 6fr 4fr" },
         };
       }
-      if (payload === "hover-6") {
+      if (payload === 6) {
         return {
           ...state,
           grid: { columns: "6fr 4fr 4fr", rows: "4fr 4fr 6fr" },
         };
       }
-      if (payload === "hover-7") {
+      if (payload === 7) {
         return {
           ...state,
           grid: { columns: "4fr 6fr 4fr", rows: "4fr 4fr 6fr" },
         };
       }
-      if (payload === "hover-8") {
+      if (payload === 8) {
         return {
           ...state,
           grid: { columns: "4fr 4fr 6fr", rows: "4fr 4fr 6fr" },
         };
       }
-      if (payload === "click-0") {
+
+    case ACTIONS.CLICK_GRID:
+      if (payload === 0) {
         return {
           ...state,
           grid: { columns: "12fr 0fr 0fr", rows: "12fr 0fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-1") {
+      if (payload === 1) {
         return {
           ...state,
           grid: { columns: "0fr 12fr 0fr", rows: "12fr 0fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-2") {
+      if (payload === 2) {
         return {
           ...state,
           grid: { columns: "0fr 0fr 12fr", rows: "12fr 0fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-3") {
+      if (payload === 3) {
         return {
           ...state,
           grid: { columns: "12fr 0fr 0fr", rows: "0fr 12fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-4") {
+      if (payload === 4) {
         return {
           ...state,
           grid: { columns: "0fr 12fr 0fr", rows: "0fr 12fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-5") {
+      if (payload === 5) {
         return {
           ...state,
           grid: { columns: "0fr 0fr 12fr", rows: "0fr 12fr 0fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-6") {
+      if (payload === 6) {
         return {
           ...state,
           grid: { columns: "12fr 0fr 0fr", rows: "0fr 0fr 12fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-7") {
+      if (payload === 7) {
         return {
           ...state,
           grid: { columns: "0fr 12fr 0fr", rows: "0fr 0fr 12fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-8") {
+      if (payload === 8) {
         return {
           ...state,
           grid: { columns: "0fr 0fr 12fr", rows: "0fr 0fr 12fr" },
+          itemActive: payload,
         };
       }
-      if (payload === "click-menu") {
-        return initialState;
-      }
-
       return state;
 
-    case ACTIONS.SET_PAGES:
+    case ACTIONS.CLICK_MENU:
+      return initialState;
+
+    case ACTIONS.NAVIGATE:
       return {
         ...state,
         navigation: payload,
       };
+
+    // case ACTIONS.ACTIVE_ITEM:
+    //   if (payload === 0) {
+    //     return {
+    //       ...state,
+    //       grid: { columns: "12fr 0fr 0fr", rows: "12fr 0fr 0fr" },
+    //       itemActive: payload,
+    //     };
+    //   }
+    //   return state;
   }
 };
 
 const MainGrid = () => {
-  const [{ grid, navigation }, dispatch] = useReducer(reducer, initialState);
+  const [{ grid, navigation, itemActive }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const deskTop = useMediaQuery("(min-width: 991px)");
 
@@ -165,31 +193,37 @@ const MainGrid = () => {
     gridTemplateRows: grid.rows,
     gap: `${navigation === "home" ? "5px" : "0px"}`,
     transition: "0.3s ease all",
+    zIndex: "9",
   };
 
-  return deskTop ? (
-    <div className="grid-container">
+  return (
+    <div className="grid-wrapper">
       {navigation === "pages" ? <MenuBtn dispatch={dispatch} /> : null}
-      <div className="grid" style={gridStyle}>
-        {Array.from({ length: 9 }).map((_, i) => (
-          <GridItemDeskTop
-            key={i}
-            dispatch={dispatch}
-            id={i}
-            navigation={navigation}
-          />
-        ))}
-      </div>
-    </div>
-  ) : (
-    // <PageContainer />
-    <div className="grid-container">
-      {navigation === "pages" ? <MenuBtn dispatch={dispatch} /> : null}
-      <div className="grid" style={gridStyle}>
-        {Array.from({ length: 9 }).map((_, i) => (
-          <GridItemMobile key={i} dispatch={dispatch} id={i} />
-        ))}
-      </div>
+      {navigation === "pages" ? (
+        <PagesContainer itemActive={itemActive} dispatch={dispatch} />
+      ) : null}
+      {deskTop ? (
+        <div className="grid-container">
+          <div className="grid" style={gridStyle}>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <GridItemDeskTop
+                key={i}
+                dispatch={dispatch}
+                id={i}
+                navigation={navigation}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="grid-container">
+          <div className="grid" style={gridStyle}>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <GridItemMobile key={i} dispatch={dispatch} id={i} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
